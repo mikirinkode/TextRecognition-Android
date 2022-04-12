@@ -37,12 +37,12 @@
                     android:id="@+id/iv_captured"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:contentDescription="@string/captured_image"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_dummy_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/captured_image" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -84,67 +84,44 @@
                     tools:text="Hello there" />
             </androidx.core.widget.NestedScrollView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:id="@+id/btn_copy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/rounded_rectangle"
                 android:elevation="0dp"
                 android:text="@string/copy"
-                android:textColor="@color/primary_500"
                 android:textSize="14sp"
                 app:backgroundTint="@color/white"
                 app:icon="@drawable/ic_copy"
-                app:iconTint="@color/primary_500"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/label_result" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <Button
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_detect_text"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         android:padding="0dp"
         android:text="@string/detect_text"
-        android:textColor="@color/primary_500"
+        app:backgroundTint="@android:color/transparent"
         app:cornerRadius="16dp"
-        android:background="@drawable/rounded_rectangle"
-        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btn_save"
         app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#33AAAAAA"
         app:strokeColor="@color/primary_500"
         app:strokeWidth="2dp" />
-
-<!--    <android.support.design.button.MaterialButton-->
-<!--        android:id="@+id/btn_detect_text"-->
-<!--        style="@style/Widget.AppCompat.Button.Borderless"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:insetTop="0dp"-->
-<!--        android:insetBottom="0dp"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_marginBottom="16dp"-->
-<!--        app:backgroundTint="@android:color/transparent"-->
-<!--        android:padding="0dp"-->
-<!--        android:text="Deteksi Teks"-->
-<!--        android:textColor="@color/primary_500"-->
-<!--        app:cornerRadius="16dp"-->
-<!--        app:rippleColor="#33AAAAAA"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/btn_save"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:strokeColor="@color/primary_500"-->
-<!--        app:strokeWidth="2dp" />-->
 
     <Button
         android:id="@+id/btn_save"
