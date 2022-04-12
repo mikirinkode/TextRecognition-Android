@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mikirinkode.ocr.data.ScanResultEntity
-import com.mikirinkode.ocr.databinding.HistoryItemBinding
+import com.mikirinkode.ocr.databinding.ScanResultItemBinding
 import com.mikirinkode.ocr.detail.DetailActivity
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     private var scanResultList = ArrayList<ScanResultEntity>()
 
-    class ViewHolder(private val binding: HistoryItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(private val binding: ScanResultItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(scanResultEntity: ScanResultEntity){
             binding.apply {
                 tvResult.text = scanResultEntity.textResult
@@ -30,7 +30,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemBinding = HistoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = ScanResultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
 
@@ -42,11 +42,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
     override fun getItemCount(): Int = scanResultList.size
 
     fun setData(itemList: List<ScanResultEntity>){
-        if (itemList != null){
-            this.scanResultList.clear()
-            this.scanResultList.addAll(itemList)
-        } else {
-            return
-        }
+        this.scanResultList.clear()
+        this.scanResultList.addAll(itemList)
     }
 }

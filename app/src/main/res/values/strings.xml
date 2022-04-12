@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Text Recognition</string>
+    <string name="captured_image">Captured Image</string>
+    <string name="result">Hasil:</string>
+    <string name="delete">Delete</string>
+    <string name="save_update">Save Update</string>
+    <string name="ocr_illustration">OCR Illustration</string>
+    <string name="recognize_and_extract_text_from_image">Recognize and Extract Text from Image</string>
+    <string name="last_scan">Hasil scan terakhir:</string>
+    <string name="no_data">- Tidak Ada Data- \nanda belum melakukan scan gambar.</string>
+    <string name="scan_image">Scan Gambar</string>
+    <string name="copy">Salin</string>
+    <string name="detect_text">Deteksi Teks</string>
+    <string name="save_result">Simpan Hasil</string>
 </resources>

@@ -27,14 +27,15 @@
                 android:src="@drawable/ic_ocr_illustration"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/label_quote"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/ocr_illustration" />
 
             <TextView
                 android:id="@+id/label_quote"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="Recognize and Extract Text from Image"
+                android:text="@string/recognize_and_extract_text_from_image"
                 android:textColor="@color/dark_blue"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -50,7 +51,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="32dp"
-                android:text="Hasil scan terakhir:"
+                android:text="@string/last_scan"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/iv_app_illustration" />
@@ -60,7 +61,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="- Tidak Ada Data- \nanda belum melakukan scan gambar."
+                android:text="@string/no_data"
                 android:textAlignment="center"
                 android:elevation="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,7 +79,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/label_last_scan"
-                tools:listitem="@layout/history_item" />
+                tools:listitem="@layout/scan_result_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -88,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:background="@drawable/rounded_rectangle"
-        android:text="Scan Gambar"
+        android:text="@string/scan_image"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

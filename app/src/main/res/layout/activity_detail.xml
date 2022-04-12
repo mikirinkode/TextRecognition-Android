@@ -27,13 +27,14 @@
                 android:src="@drawable/ic_dummy_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/captured_image" />
 
             <TextView
                 android:id="@+id/label_result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hasil:"
+                android:text="@string/result"
                 android:textSize="16sp"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
@@ -81,7 +82,7 @@
         android:background="@drawable/rounded_rectangle"
         android:elevation="0dp"
         android:enabled="false"
-        android:text="Delete"
+        android:text="@string/delete"
         android:textColor="@color/delete"
         app:backgroundTint="@color/white"
         app:icon="@drawable/ic_delete"
@@ -99,7 +100,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_rectangle"
         android:enabled="false"
-        android:text="Save Update"
+        android:text="@string/save_update"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_delete" />

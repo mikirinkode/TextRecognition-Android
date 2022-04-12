@@ -1,6 +1,5 @@
 package com.mikirinkode.ocr.detail
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
@@ -54,12 +53,11 @@ class DetailActivity : AppCompatActivity() {
                 val alert: AlertDialog.Builder = AlertDialog.Builder(this@DetailActivity)
                 alert.setTitle("Hapus hasil Scan?")
                 alert.setMessage("Anda yakin ingin menghapus hasil scan ini?")
-                alert.setPositiveButton("YA", object : DialogInterface.OnClickListener {
-                    override fun onClick(dialog: DialogInterface?, which: Int) {
-                        viewModel.removeScanResult(scanResult.id)
-                        onBackPressed()
-                    }
-                })
+                alert.setPositiveButton("YA"
+                ) { _, _ ->
+                    viewModel.removeScanResult(scanResult.id)
+                    onBackPressed()
+                }
                 alert.setNegativeButton("TIDAK") { dialog, _ -> // close dialog
                     dialog.dismiss()
                 }
