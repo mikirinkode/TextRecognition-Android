@@ -68,21 +68,43 @@
                     app:layout_constraintTop_toBottomOf="@id/iv_captured"
                     tools:text="Hello there" />
             </androidx.core.widget.NestedScrollView>
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:id="@+id/btn_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:elevation="0dp"
+                android:text="@string/copy"
+                android:textSize="14sp"
+                app:backgroundTint="@color/white"
+                app:icon="@drawable/ic_copy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/label_result" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_delete"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_rectangle"
+        android:backgroundTint="@android:color/transparent"
         android:elevation="0dp"
         android:enabled="false"
         android:text="@string/delete"
+        app:cornerRadius="16dp"
+        android:insetBottom="0dp"
+        android:insetTop="0dp"
+        app:rippleColor="#33AAAAAA"
+        app:strokeWidth="2dp"
+        app:strokeColor="@color/delete"
         android:textColor="@color/delete"
         app:backgroundTint="@color/white"
         app:icon="@drawable/ic_delete"
