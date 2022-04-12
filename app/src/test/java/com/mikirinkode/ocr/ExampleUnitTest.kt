@@ -1,4 +1,4 @@
-package com.mikirinkode.textrecognition
+package com.mikirinkode.ocr
 
 import org.junit.Test
 

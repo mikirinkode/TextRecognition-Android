@@ -1,4 +1,4 @@
-package com.mikirinkode.textrecognition
+package com.mikirinkode.ocr
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
