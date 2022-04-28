@@ -2,7 +2,6 @@ package com.mikirinkode.scanner.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.mikirinkode.scanner.BuildConfig
 import com.mikirinkode.scanner.core.data.ScannerRepository
 import com.mikirinkode.scanner.core.data.local.LocalDataSource
 import com.mikirinkode.scanner.core.data.local.OcrDao
@@ -10,6 +9,7 @@ import com.mikirinkode.scanner.core.data.local.OcrDatabase
 import com.mikirinkode.scanner.core.domain.repository.IScannerRepository
 import com.mikirinkode.scanner.core.domain.usecase.ScannerInteractor
 import com.mikirinkode.scanner.core.domain.usecase.ScannerUseCase
+import com.mikirinkode.scanner.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,9 +26,9 @@ class AppModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext app: Context): OcrDatabase {
-        val passphrase: ByteArray = SQLiteDatabase.getBytes(BuildConfig.PASSPHRASE.toCharArray())
+        val passphrase: ByteArray = SQLiteDatabase.getBytes(Constants.PASSPHRASE.toCharArray())
         val factory = SupportFactory(passphrase)
-        return Room.databaseBuilder(app, OcrDatabase::class.java, "ocr_database")
+        return Room.databaseBuilder(app, OcrDatabase::class.java, Constants.DB_NAME)
             .openHelperFactory(factory)
             .build()
     }

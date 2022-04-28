@@ -24,6 +24,7 @@ android {
 
 
         buildConfigField("String", "PASSPHRASE", "\"${properties.getProperty('PASSPHRASE')}\"")
+        buildConfigField("String", "DB_NAME", "\"${properties.getProperty('DB_NAME')}\"")
     }
 
     buildTypes {
