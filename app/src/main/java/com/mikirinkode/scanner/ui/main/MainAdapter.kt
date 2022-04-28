@@ -1,29 +1,31 @@
-package com.mikirinkode.ocr.main
+package com.mikirinkode.scanner.ui.main
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.mikirinkode.ocr.data.ScanResultEntity
-import com.mikirinkode.ocr.databinding.ScanResultItemBinding
-import com.mikirinkode.ocr.detail.DetailActivity
+import com.mikirinkode.scanner.databinding.ScanResultItemBinding
+import com.mikirinkode.scanner.core.domain.model.ScanResult
+import com.mikirinkode.scanner.ui.detail.DetailActivity
+import com.mikirinkode.scanner.utils.Converter
 
 class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
-    private var scanResultList = ArrayList<ScanResultEntity>()
+    private var scanResultList = ArrayList<ScanResult>()
 
     class ViewHolder(private val binding: ScanResultItemBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(scanResultEntity: ScanResultEntity){
+        fun bind(scanResult: ScanResult){
             binding.apply {
-                tvResult.text = scanResultEntity.textResult
+                tvResult.text = scanResult.textResult
+                val image = Converter.toBitmap(scanResult.image)
                 Glide.with(itemView.context)
-                    .load(scanResultEntity.image)
+                    .load(image)
                     .into(ivCaptured)
             }
             itemView.setOnClickListener {
                 val moveToDetail = Intent(itemView.context, DetailActivity::class.java)
-                moveToDetail.putExtra(DetailActivity.EXTRA_ID, scanResultEntity.id)
+                moveToDetail.putExtra(DetailActivity.EXTRA_ENTITY, scanResult)
                 itemView.context.startActivity(moveToDetail)
             }
         }
@@ -41,7 +43,7 @@ class MainAdapter: RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = scanResultList.size
 
-    fun setData(itemList: List<ScanResultEntity>){
+    fun setData(itemList: List<ScanResult>){
         this.scanResultList.clear()
         this.scanResultList.addAll(itemList)
     }

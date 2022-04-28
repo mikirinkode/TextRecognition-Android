@@ -1,4 +1,4 @@
-package com.mikirinkode.ocr.scanner
+package com.mikirinkode.scanner.ui.scanner
 
 import android.app.Activity
 import android.content.*
@@ -9,9 +9,9 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -24,14 +24,17 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
-import com.mikirinkode.ocr.data.ScanResultEntity
-import com.mikirinkode.ocr.databinding.ActivityScannerBinding
-import com.mikirinkode.ocr.main.MainViewModel
+import com.mikirinkode.scanner.databinding.ActivityScannerBinding
+import com.mikirinkode.scanner.core.domain.model.ScanResult
+import com.mikirinkode.scanner.ui.main.MainViewModel
+import com.mikirinkode.scanner.utils.Converter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ScannerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScannerBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var scannedBitmap: Bitmap
     private lateinit var textResult: String
     private var bitmapState: Bitmap? = null
@@ -45,7 +48,6 @@ class ScannerActivity : AppCompatActivity() {
         binding.tvResult.clearFocus()
         actionBar?.setDisplayHomeAsUpEnabled(true)
         title = "Scanner"
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         // ketika user menekan gambar
         binding.ivCaptured.setOnClickListener {
@@ -214,7 +216,8 @@ class ScannerActivity : AppCompatActivity() {
     private fun saveScanResult(scannedBitmap: Bitmap) {
         if (textResult.isNotEmpty() && textResult != ""){
             val newText = binding.tvResult.text.toString()
-            val scanResult = ScanResultEntity(textResult = newText, image = scannedBitmap)
+            val imageToByteArray = Converter.toByteArray(scannedBitmap)
+            val scanResult = ScanResult(textResult = newText, image = imageToByteArray)
             viewModel.insertScanResult(scanResult)
             Toast.makeText(this, "Teks berhasil disimpan", Toast.LENGTH_SHORT).show()
             onBackPressed()

@@ -1,24 +1,26 @@
-package com.mikirinkode.ocr.detail
+package com.mikirinkode.scanner.ui.detail
 
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.mikirinkode.ocr.data.ScanResultEntity
-import com.mikirinkode.ocr.databinding.ActivityDetailBinding
-import com.mikirinkode.ocr.main.MainViewModel
+import com.mikirinkode.scanner.core.domain.model.ScanResult
+import com.mikirinkode.scanner.databinding.ActivityDetailBinding
+import com.mikirinkode.scanner.ui.main.MainViewModel
+import com.mikirinkode.scanner.utils.Converter
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var textResult: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,30 +31,25 @@ class DetailActivity : AppCompatActivity() {
         title = "Detail"
         binding.tvResult.clearFocus()
 
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        val entity = intent.getParcelableExtra<ScanResult>(EXTRA_ENTITY)
 
-        val scanId = intent.getIntExtra(EXTRA_ID, 0)
-        viewModel.setSelectedId(scanId)
+        binding.apply {
+            if (entity != null) {
+                setData(entity)
+                btnUpdate.isEnabled = true
+                btnDelete.isEnabled = true
+                btnCopy.isEnabled = true
+            } else {
+                btnUpdate.isEnabled = false
+                btnDelete.isEnabled = false
+                btnCopy.isEnabled = false
+            }
 
-        viewModel.scanResultDetail.observe(this) { itemResult ->
-            binding.apply {
-                if (itemResult != null) {
-                    setData(itemResult)
-                    btnUpdate.isEnabled = true
-                    btnDelete.isEnabled = true
-                    btnCopy.isEnabled = true
-                } else {
-                    btnUpdate.isEnabled = false
-                    btnDelete.isEnabled = false
-                    btnCopy.isEnabled = false
-                }
-
-                btnCopy.setOnClickListener {
-                    if (textResult == "" || textResult.isEmpty()){
-                        Toast.makeText(this@DetailActivity, "Text Kosong", Toast.LENGTH_SHORT).show()
-                    } else{
-                        copyToClipboard(textResult)
-                    }
+            btnCopy.setOnClickListener {
+                if (textResult == "" || textResult.isEmpty()){
+                    Toast.makeText(this@DetailActivity, "Text Kosong", Toast.LENGTH_SHORT).show()
+                } else{
+                    copyToClipboard(textResult)
                 }
             }
         }
@@ -65,13 +62,13 @@ class DetailActivity : AppCompatActivity() {
         Toast.makeText(this, "Teks Berhasil Disalin.", Toast.LENGTH_SHORT).show()
     }
 
-    private fun setData(scanResult: ScanResultEntity) {
+    private fun setData(scanResult: ScanResult) {
         binding.apply {
             textResult = scanResult.textResult
-
+            val image = Converter.toBitmap(scanResult.image)
             tvResult.setText(scanResult.textResult)
             Glide.with(this@DetailActivity)
-                .load(scanResult.image)
+                .load(image)
                 .into(ivCaptured)
 
             btnDelete.setOnClickListener {
@@ -80,27 +77,34 @@ class DetailActivity : AppCompatActivity() {
                 alert.setMessage("Anda yakin ingin menghapus hasil scan ini?")
                 alert.setPositiveButton("YA"
                 ) { _, _ ->
-                    viewModel.removeScanResult(scanResult.id)
-                    onBackPressed()
+                    val intent = Intent()
+                    intent.putExtra(EXTRA_ENTITY, scanResult)
+                    viewModel.removeScanResult(scanResult)
+                    setResult(RESULT_DELETE, intent)
+                    finish()
                 }
                 alert.setNegativeButton("TIDAK") { dialog, _ -> // close dialog
-                    dialog.dismiss()
+                    dialog.cancel()
                 }
                 alert.show()
 
             }
             btnUpdate.setOnClickListener {
                 val newText = tvResult.text.toString()
-                Log.e("DETAIL ACTIVITY:", newText)
-                val newScanResult = ScanResultEntity(id = scanResult.id, textResult = newText, image = scanResult.image)
+                val newScanResult = ScanResult(id = scanResult.id, textResult = newText, image = scanResult.image)
+                val intent = Intent()
+                intent.putExtra(EXTRA_ENTITY, scanResult)
                 viewModel.updateScanResult(newScanResult)
-                onBackPressed()
+                setResult(RESULT_UPDATE, intent)
+                finish()
             }
         }
     }
 
 
     companion object {
-        const val EXTRA_ID = "extra_id"
+        const val EXTRA_ENTITY = "extra_entity"
+        const val RESULT_DELETE = 301
+        const val RESULT_UPDATE = 200
     }
 }

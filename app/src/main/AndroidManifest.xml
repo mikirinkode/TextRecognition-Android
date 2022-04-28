@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mikirinkode.ocr">
+    package="com.mikirinkode.scanner">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".core.di.BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.TextRecognition">
         <activity
-            android:name="com.mikirinkode.ocr.detail.DetailActivity"
+            android:name="com.mikirinkode.scanner.ui.detail.DetailActivity"
             android:exported="false"
-            android:parentActivityName="com.mikirinkode.ocr.main.MainActivity"
+            android:parentActivityName="com.mikirinkode.scanner.ui.main.MainActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name="com.mikirinkode.ocr.scanner.ScannerActivity"
+            android:name="com.mikirinkode.scanner.ui.scanner.ScannerActivity"
             android:exported="true"
-            android:parentActivityName="com.mikirinkode.ocr.main.MainActivity"
+            android:parentActivityName="com.mikirinkode.scanner.ui.main.MainActivity"
             android:configChanges="orientation|screenSize">
         </activity>
         <activity
-            android:name="com.mikirinkode.ocr.main.MainActivity"
+            android:name="com.mikirinkode.scanner.ui.main.MainActivity"
             android:exported="true"
             android:configChanges="orientation|screenSize" >
             <intent-filter>

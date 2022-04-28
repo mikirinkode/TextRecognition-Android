@@ -1,4 +1,4 @@
-package com.mikirinkode.ocr
+package com.mikirinkode.scanner
 
 import org.junit.Test
 
